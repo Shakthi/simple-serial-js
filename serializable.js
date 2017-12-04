@@ -1,28 +1,6 @@
 class Serializable {
 
 
-	_serialize(data) {
-		var fields = this.serialize()
-		if (!fields) {
-			return [];
-		}
-
-		if (!fields.length) {
-
-			if (data === undefined) {
-				data = this;
-			}
-
-			for (var prop in data) {
-				fields.push(prop);
-			}
-		}
-
-		return fields;
-
-	}
-
-
 
 	toJson() {
 
@@ -62,7 +40,7 @@ class Serializable {
 		const self = this;
 
 
-		this._serialize().forEach(function(argument) {
+		_serialize(this).forEach(function(argument) {
 			data[argument] = toJsonEntity(self[argument]);
 		})
 
@@ -110,7 +88,7 @@ class Serializable {
 		}
 
 		const self = this;
-		this._serialize(data).reverse().forEach(function(argument) {
+		_serialize(self,data).reverse().forEach(function(argument) {
 			self[argument] = fromJsonEntity(self, data[argument]);
 		})
 
@@ -142,6 +120,64 @@ class Serializable {
 		return ret;
 	}
 
+
+
 }
+
+Serializable.mixin = function(object) {
+
+	Object.defineProperty(object, 'factory', {
+		value: Serializable.prototype.factory,
+		writable: true,
+		enumerable: false,
+		configurable: true
+	});
+
+	Object.defineProperty(object, 'serialize', {
+		value: Serializable.prototype.serialize,
+		writable: true,
+		enumerable: false,
+		configurable: true
+	});
+
+
+	Object.defineProperty(object, 'fromJson', {
+		value: Serializable.prototype.fromJson,
+		writable: true,
+		enumerable: false,
+		configurable: true
+	});
+
+	Object.defineProperty(object, 'toJson', {
+		value: Serializable.prototype.toJson,
+		writable: true,
+		enumerable: false,
+		configurable: true
+	});
+
+}
+
+
+function _serialize (self, data) {
+	var fields = self.serialize()
+	if (!fields) {
+		return [];
+	}
+
+	if (!fields.length) {
+
+		if (data === undefined) {
+			data = self;
+		}
+
+		for (var prop in data) {
+			fields.push(prop);
+		}
+	}
+
+	return fields;
+
+}
+
 
 module.exports = Serializable;
