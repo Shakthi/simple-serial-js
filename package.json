@@ -1,0 +1,24 @@
+{
+  "name": "simple-serial-js",
+  "version": "0.0.1",
+  "description": "Simple library to encode javascript to json using standard serialization technique.",
+  "main": "serializable.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shakthi/simple-serial-js.git"
+  },
+  "keywords": [
+    "javascript json ",
+    "json encode",
+    "serializ js"
+  ],
+  "author": "Shakthi Prasad G S <shakthi.gs87@gmail.com> (https://github.com/Shakthi/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Shakthi/simple-serial-js/issues"
+  },
+  "homepage": "https://github.com/Shakthi/simple-serial-js"
+}
