@@ -1,3 +1,4 @@
+"use strict";
 class Serializable {
 
 
@@ -13,7 +14,7 @@ class Serializable {
 
 
 				case 'object':
-					if (entity == null) {
+					if (entity === null) {
 						return entity;
 
 					} else if (Array.isArray(entity)) {
@@ -37,12 +38,11 @@ class Serializable {
 
 		const data = {};
 
-		const self = this;
 
 
 		_serialize(this).forEach(function(argument) {
-			data[argument] = toJsonEntity(self[argument]);
-		})
+			data[argument] = toJsonEntity(this[argument]);
+		}, this);
 
 		return data;
 
@@ -60,7 +60,7 @@ class Serializable {
 
 
 				case 'object':
-					if (entity == null) {
+					if (entity === null) {
 						return entity;
 
 					} else if (Array.isArray(entity)) {
@@ -68,6 +68,7 @@ class Serializable {
 							return fromJsonEntity(self, argument);
 						});
 					} else if (entity) {
+
 						if (entity.constructorName) {
 							const factory = self.factory();
 							const outObject = Object.create(factory[entity.constructorName].prototype);
@@ -79,18 +80,16 @@ class Serializable {
 							return entity;
 						}
 
-
-
 					}
 
 			}
 
 		}
 
-		const self = this;
-		_serialize(self,data).forEach(function(argument) {
-			self[argument] = fromJsonEntity(self, data[argument]);
-		})
+
+		_serialize(this, data).reverse().forEach(function(argument) {
+			this[argument] = fromJsonEntity(this, data[argument]);
+		}, this);
 
 	}
 
@@ -101,9 +100,9 @@ class Serializable {
 			const args = Array.from(arguments);
 			args.forEach(function(argument) {
 				ret.push(argument);
-			})
+			});
 			return this;
-		}
+		};
 		return ret;
 	}
 
@@ -114,9 +113,9 @@ class Serializable {
 			const args = Array.from(arguments);
 			args.forEach(function(argument) {
 				ret[argument.prototype.constructor.name] = argument;
-			})
+			});
 			return this;
-		}
+		};
 		return ret;
 	}
 
@@ -155,11 +154,11 @@ Serializable.mixin = function(object) {
 		configurable: true
 	});
 
-}
+};
 
 
-function _serialize (self, data) {
-	var fields = self.serialize()
+function _serialize(self, data) {
+	var fields = self.serialize();
 	if (!fields) {
 		return [];
 	}
