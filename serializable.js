@@ -87,7 +87,7 @@ class Serializable {
 		}
 
 
-		_serialize(this, data).reverse().forEach(function(argument) {
+		_serialize(this, data).forEach(function(argument) {
 			this[argument] = fromJsonEntity(this, data[argument]);
 		}, this);
 

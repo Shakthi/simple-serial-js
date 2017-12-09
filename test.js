@@ -1,7 +1,10 @@
 "use strict";
 var Serializable = require('./serializable.js');
 
-debugger;
+//Test shows Serializable by inheritance and with implicit  
+
+
+
 var ast = {};
 
 class expression extends Serializable {
@@ -48,10 +51,6 @@ class binaryExpression extends expression {
 	}
 }
 
-try {
-
-	throw ("");
-} catch (e) {}
 
 
 ast.expression = expression;
@@ -66,20 +65,20 @@ var anExpression = new binaryExpression(
 	new binaryExpression(new terminalExpression(10), '*', new unaryExpression('-', new terminalExpression(20))),
 	'+', new terminalExpression(30));
 
-console.log(anExpression);
+console.log("Created expression ", anExpression);
+
 var str = JSON.stringify(anExpression.toJson(), null, 2);
+
 console.log(str);
 
-var anotherExpression = Object.create(expression.prototype);
-anotherExpression.fromJson(JSON.parse(str));
+var createdExpression = Object.create(expression.prototype);
+createdExpression.fromJson(JSON.parse(str));
 
-console.log(anotherExpression);
+console.log(createdExpression);
 
-var str2 = JSON.stringify(anotherExpression.toJson(), null, 2);
+var str2 = JSON.stringify(createdExpression.toJson(), null, 2);
 
 if (str != str2) {
-	console.error("Test failed");
+	console.error("Filed to reproduce original object");
 	process.exit(1);
 }
-
-
