@@ -1,7 +1,7 @@
 "use strict";
 var Serializable = require('./serializable.js');
 
-//Test shows Serializable by inheritance and with implicit  
+//Test shows Serializable by inheritance and with implicit attributes
 
 
 
@@ -59,26 +59,29 @@ ast.unaryExpression = unaryExpression;
 ast.binaryExpression = binaryExpression;
 
 
-console.log("Lets construct (10*-20)+30");
+//console.log("Lets construct (10*-20)+30");
 
 var anExpression = new binaryExpression(
 	new binaryExpression(new terminalExpression(10), '*', new unaryExpression('-', new terminalExpression(20))),
 	'+', new terminalExpression(30));
 
-console.log("Created expression ", anExpression);
+//console.log("Created expression ", anExpression);
 
 var str = JSON.stringify(anExpression.toJson(), null, 2);
 
-console.log(str);
+//console.log(str);
 
 var createdExpression = Object.create(expression.prototype);
 createdExpression.fromJson(JSON.parse(str));
 
-console.log(createdExpression);
+//console.log(createdExpression);
 
 var str2 = JSON.stringify(createdExpression.toJson(), null, 2);
 
 if (str != str2) {
 	console.error("Filed to reproduce original object");
 	process.exit(1);
+}else{
+ 
+	console.error("Simple serial js successfully recreated original object hirarchy ✔ ");
 }
