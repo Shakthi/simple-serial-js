@@ -79,9 +79,9 @@ createdExpression.fromJson(JSON.parse(str));
 var str2 = JSON.stringify(createdExpression.toJson(), null, 2);
 
 if (str != str2) {
-	console.error("Filed to reproduce original object");
+	console.error("Failed to reproduce original object");
 	process.exit(1);
 }else{
  
-	console.error("Simple serial js successfully recreated original object hirarchy ✔ ");
+	console.log("Simple serial js successfully recreated original object hirarchy ✔ ");
 }

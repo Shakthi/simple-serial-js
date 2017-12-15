@@ -1,6 +1,6 @@
 {
   "name": "simple-serial-js",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Simple library to encode javascript to json using standard serialization technique.",
   "main": "serializable.js",
   "scripts": {
