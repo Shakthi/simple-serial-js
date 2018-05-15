@@ -49,7 +49,7 @@ class Serializable {
 	}
 
 
-	fromJson(data) {
+	fromJson(data,factoryIf) {
 
 		function fromJsonEntity(self, entity) {
 			switch (typeof(entity)) {
@@ -70,9 +70,10 @@ class Serializable {
 					} else if (entity) {
 
 						if (entity.constructorName) {
-							const factory = self.factory();
-							const outObject = Object.create(factory[entity.constructorName].prototype);
-							outObject.fromJson(entity.content);
+							
+
+							const outObject = Object.create(factoryIf[entity.constructorName].prototype);
+							outObject.fromJson(entity.content,factoryIf);
 
 							return outObject;
 						} else {
@@ -106,18 +107,6 @@ class Serializable {
 		return ret;
 	}
 
-	factory() {
-
-		const ret = {};
-		ret.add = function() {
-			const args = Array.from(arguments);
-			args.forEach(function(argument) {
-				ret[argument.prototype.constructor.name] = argument;
-			});
-			return this;
-		};
-		return ret;
-	}
 
 
 

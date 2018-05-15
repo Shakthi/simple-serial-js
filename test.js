@@ -9,10 +9,6 @@ var ast = {};
 
 class expression extends Serializable {
 
-	factory() {
-		return ast;
-	}
-
 }
 
 
@@ -72,7 +68,7 @@ var str = JSON.stringify(anExpression.toJson(), null, 2);
 //console.log(str);
 
 var createdExpression = Object.create(expression.prototype);
-createdExpression.fromJson(JSON.parse(str));
+createdExpression.fromJson(JSON.parse(str),ast);
 
 //console.log(createdExpression);
 
