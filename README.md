@@ -10,9 +10,7 @@ Its common scenario in javscript development where we want to store js object in
 var ast = {};
 
 class expression extends Serializable {
-	factory() {
-		return ast;
-		}
+	
 }
 class unaryExpression extends expression {
     constructor(operator, left) {
@@ -32,9 +30,7 @@ createdExpression.fromJson(JSON.parse(str));
 Alternate to subclassing
 ```javascript
 class expression {
-	factory() {
-		return ast;
-	}
+	
 }
 
 Serializable.mixin(expression.prototype);
